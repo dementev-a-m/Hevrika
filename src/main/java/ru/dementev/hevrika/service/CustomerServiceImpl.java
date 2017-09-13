@@ -13,19 +13,19 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository repository;
 
-    public List<Customer> findAll() {
+    public List<Customer> getAll() {
         return repository.findAll();
     }
 
-    public Customer findById(long id) {
+    public Customer getById(long id) {
         return repository.findOne(id);
     }
 
-    public Customer save(Customer customer) {
+    public Customer set(Customer customer) {
         return repository.save(customer);
     }
 
-    public String delete(long id) {
+    public String remove(long id) {
         repository.delete(id);
         return "Запись удалена";
     }

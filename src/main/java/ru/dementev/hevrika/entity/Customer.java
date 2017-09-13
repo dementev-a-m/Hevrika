@@ -14,7 +14,8 @@ import java.util.List;
 /**
  * Created by adementev on 28.07.2017.
  */
-
+@Entity
+@Table(name = "customer")
 public class Customer implements Serializable{
     private long id;
     private int version;

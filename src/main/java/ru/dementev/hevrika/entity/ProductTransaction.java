@@ -5,6 +5,8 @@ import javax.persistence.*;
 /**
  * Created by adementev on 28.07.2017.
  */
+@Entity
+@Table(name = "product_transaction")
 public class ProductTransaction {
     private long id;
     private Transaction transaction;
