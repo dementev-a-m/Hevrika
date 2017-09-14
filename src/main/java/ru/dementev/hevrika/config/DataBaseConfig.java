@@ -1,7 +1,6 @@
 package ru.dementev.hevrika.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -11,10 +10,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,16 +30,17 @@ import java.util.Properties;
 @ComponentScan("ru.dementev.hevrika")
 public class DataBaseConfig {
 
-    @Autowired
+    @Resource
     private Environment environment;
 
+    @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
-        LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactory.setDataSource(dataSource());
-        entityManagerFactory.setPackagesToScan(environment.getRequiredProperty("db.entity.package"));
-        entityManagerFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        entityManagerFactory.setJpaProperties(getHibernateProperty());
-        return  entityManagerFactory;
+        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(dataSource());
+        em.setPackagesToScan(environment.getRequiredProperty("db.entity.package"));
+        em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        em.setJpaProperties(getHibernateProperty());
+        return  em;
     }
 
     @Bean
@@ -51,13 +51,13 @@ public class DataBaseConfig {
         dataSource.setPassword(environment.getRequiredProperty("db.password"));
         dataSource.setDriverClassName(environment.getRequiredProperty("db.driver"));
 
-        dataSource.setInitialSize(Integer.parseInt(environment.getRequiredProperty("db.initialSize")));
-        dataSource.setMinIdle(Integer.parseInt(environment.getRequiredProperty("db.minIdle")));
-        dataSource.setMaxIdle(Integer.parseInt(environment.getRequiredProperty("db.maxIdle")));
-        dataSource.setTimeBetweenEvictionRunsMillis(Long.parseLong(environment.getRequiredProperty("db.timeBetweenEvictionRunsMillis")));
-        dataSource.setMinEvictableIdleTimeMillis(Long.parseLong(environment.getRequiredProperty("db.minEvictableIdleTimeMillis")));
-        dataSource.setTestOnBorrow(Boolean.parseBoolean(environment.getRequiredProperty("db.testOnBorrow")));
-        dataSource.setValidationQuery("db.validationQuery");
+        dataSource.setInitialSize(Integer.valueOf(environment.getRequiredProperty("db.initialSize")));
+        dataSource.setMinIdle(Integer.valueOf(environment.getRequiredProperty("db.minIdle")));
+        dataSource.setMaxIdle(Integer.valueOf(environment.getRequiredProperty("db.maxIdle")));
+        dataSource.setTimeBetweenEvictionRunsMillis(Long.valueOf(environment.getRequiredProperty("db.timeBetweenEvictionRunsMillis")));
+        dataSource.setMinEvictableIdleTimeMillis(Long.valueOf(environment.getRequiredProperty("db.minEvictableIdleTimeMillis")));
+        dataSource.setTestOnBorrow(Boolean.valueOf(environment.getRequiredProperty("db.testOnBorrow")));
+        dataSource.setValidationQuery(environment.getRequiredProperty("db.validationQuery"));
 
         return dataSource;
     }

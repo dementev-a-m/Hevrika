@@ -1,10 +1,13 @@
 package ru.dementev.hevrika.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFilter;
 import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -17,7 +20,7 @@ public class Transaction {
     private long id;
     private Customer customer;
     private double sum;
-    private DateTime date;
+    private Date date;
     private List<ProductTransaction> productTransactionList;
 
     public Transaction() {
@@ -50,25 +53,25 @@ public class Transaction {
     public void setSum(double sum) {
         this.sum = sum;
     }
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+//    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name ="date")
-    public DateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(DateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
-    @Transient
-    public String  getDateString() {
-
-        String dateString = "";
-        if (date != null)
-            dateString = org.joda.time.format.DateTimeFormat.forPattern("yyyy-MM-dd hh:mm:ss").print(date);
-
-        return dateString;
-    }
+//    @Transient
+//    public String  getDateString() {
+//
+//        String dateString = "";
+//        if (date != null)
+//            dateString = org.joda.time.format.DateTimeFormat.forPattern("yyyy-MM-dd hh:mm:ss").print(DateTime.parse(date.toString()));
+//
+//        return dateString;
+//    }
 
     @Override
     public boolean equals(Object o) {

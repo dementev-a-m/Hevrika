@@ -9,9 +9,9 @@ import java.util.List;
  * Created by adementev on 13.09.2017.
  */
 public interface TransactionService {
-    public List<Transaction> findAll();
-    public Transaction findById(long id);
-    public Transaction save(Transaction transaction);
-    public String delete(long id);
+    public List<Transaction> getAll();
+    public Transaction getById(long id);
+    public Transaction set(Transaction transaction);
+    public String remove(long id);
 
 }

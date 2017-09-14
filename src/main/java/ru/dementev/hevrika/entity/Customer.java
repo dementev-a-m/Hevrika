@@ -2,12 +2,16 @@ package ru.dementev.hevrika.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +20,14 @@ import java.util.List;
  */
 @Entity
 @Table(name = "customer")
+
 public class Customer implements Serializable{
     private long id;
     private int version;
     private String firstName;
     private String lastName;
     private String middleName;
-    private DateTime birthday;
+    private Date birthday;
 
     private String email;
     private String phone;
@@ -83,13 +88,13 @@ public class Customer implements Serializable{
     }
 
     @Column(name = "birth_date")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+   // @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    public DateTime getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(DateTime birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -119,15 +124,15 @@ public class Customer implements Serializable{
         this.transactions = transactions;
     }
 
-    @Transient
-    public String  getBirthDateString(){
-
-    String birthDateString = "";
-    if(birthday !=null)
-        birthDateString = org.joda.time.format.DateTimeFormat.forPattern("yyyy-MM-dd").print(birthday);
-
-    return birthDateString;
-}
+//    @Transient
+//    public String  getBirthDateString(){
+//
+//    String birthDateString = "";
+//    if(birthday !=null)
+//        birthDateString = org.joda.time.format.DateTimeFormat.forPattern("yyyy-MM-dd").print((DateTime.parse(birthday.toString())));
+//
+//    return birthDateString;
+//}
 
     @Override
     public String toString() {
