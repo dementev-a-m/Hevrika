@@ -31,4 +31,8 @@ public class CustomerServiceImpl implements CustomerService {
         repository.delete(id);
         return "Запись удалена";
     }
+
+    public List<Customer> getByName(String firstName) {
+        return repository.findByName(firstName);
+    }
 }

@@ -12,5 +12,6 @@ public interface CustomerService {
     public Customer getById(long id);
     public Customer set(Customer customer);
     public String remove(long id);
+    public List<Customer> getByName(String findByName);
 
 }

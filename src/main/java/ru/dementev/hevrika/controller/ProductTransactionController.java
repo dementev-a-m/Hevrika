@@ -1,11 +1,13 @@
 package ru.dementev.hevrika.controller;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.dementev.hevrika.entity.ProductTransaction;
 import ru.dementev.hevrika.service.ProductTransactionServiceImpl;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by adementev on 13.09.2017.
@@ -13,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/product_transaction")
 public class ProductTransactionController {
-
+//    private final Logger logger = (Logger) LoggerFactory.getLogger(ProductTransactionController.class);
 
     @Autowired
     private ProductTransactionServiceImpl service;
